@@ -1,0 +1,18 @@
+from pydantic import BaseModel, EmailStr
+
+class UserCreate(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+
+    class Config:
+        from_attributes = True  # Sintaxis correcta para Pydantic v2
+
+class UserLogin(BaseModel):
+    email: EmailStr  # Forzamos que sea un email válido desde la entrada
+    password: str
