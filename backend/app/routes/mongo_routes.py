@@ -192,6 +192,17 @@ def get_resources():
 
     return resources
 
+@router.delete("/resources/{resource_id}")
+def delete_resource(resource_id: str):
+
+    mongo_db.resources.delete_one({
+        "_id": ObjectId(resource_id)
+    })
+
+    return {
+        "message": "Recurso eliminado"
+    }
+
 
 @router.delete("/flashcards/{flashcard_id}")
 def delete_flashcard(flashcard_id: str):
