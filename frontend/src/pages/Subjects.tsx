@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { API_URL } from "../config/api";
+
 
 interface Subject {
   id: number;
@@ -14,7 +16,7 @@ function Subjects() {
   const [name, setName] = useState("");
 
   const fetchSubjects = async () => {
-    const response = await fetch("http://127.0.0.1:8000/subjects");
+    const response = await fetch(`${API_URL}/subjects`);
     const data = await response.json();
 
     setSubjects(
@@ -25,7 +27,7 @@ function Subjects() {
   const createSubject = async () => {
     if (!name) return;
 
-    await fetch("http://127.0.0.1:8000/subjects", {
+    await fetch(`${API_URL}/subjects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +43,7 @@ function Subjects() {
   };
 
   const deleteSubject = async (id: number) => {
-    await fetch(`http://127.0.0.1:8000/subjects/${id}`, {
+    await fetch(`${API_URL}/subjects/${id}`, {
       method: "DELETE",
     });
 

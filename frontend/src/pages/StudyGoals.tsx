@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { API_URL } from "../config/api";
+
 
 interface StudyGoal {
   _id: string;
@@ -18,7 +20,7 @@ function StudyGoals() {
   const [currentHours, setCurrentHours] = useState("");
 
   const fetchGoals = async () => {
-    const response = await fetch("http://127.0.0.1:8000/mongo/study-goals");
+    const response = await fetch(`${API_URL}/mongo/study-goals`);
     const data = await response.json();
 
     setGoals(data.filter((goal: StudyGoal) => goal.user_id === user.id));
@@ -27,7 +29,7 @@ function StudyGoals() {
   const createGoal = async () => {
     if (!title || !targetHours) return;
 
-    await fetch("http://127.0.0.1:8000/mongo/study-goals", {
+    await fetch(`${API_URL}/mongo/study-goals`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +49,7 @@ function StudyGoals() {
   };
 
   const deleteGoal = async (id: string) => {
-    await fetch(`http://127.0.0.1:8000/mongo/study-goals/${id}`, {
+    await fetch(`${API_URL}/mongo/study-goals/${id}`, {
       method: "DELETE",
     });
 

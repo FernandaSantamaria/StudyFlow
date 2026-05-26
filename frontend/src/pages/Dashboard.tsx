@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { API_URL } from "../config/api";
 
 interface Task {
   id: number;
@@ -17,7 +18,7 @@ function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const fetchTasks = async () => {
-    const response = await fetch("http://127.0.0.1:8000/tasks");
+    const response = await fetch(`${API_URL}/tasks`);
     const data = await response.json();
 
     const userTasks = data.filter((task: Task) => task.user_id === user.id);
@@ -27,7 +28,7 @@ function Dashboard() {
   const createTask = async () => {
     if (!title || !description) return;
 
-    await fetch("http://127.0.0.1:8000/tasks", {
+    await fetch(`${API_URL}/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

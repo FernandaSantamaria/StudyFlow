@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { API_URL } from "../config/api";
+
 
 interface Resource {
   _id: string;
@@ -18,7 +20,7 @@ function Resources() {
   const [subject, setSubject] = useState("");
 
   const fetchResources = async () => {
-    const response = await fetch("http://127.0.0.1:8000/mongo/resources");
+    const response = await fetch(`${API_URL}/mongo/resources`);
     const data = await response.json();
 
     setResources(
@@ -29,7 +31,7 @@ function Resources() {
   const createResource = async () => {
     if (!title || !url || !subject) return;
 
-    await fetch("http://127.0.0.1:8000/mongo/resources", {
+    await fetch(`${API_URL}/mongo/resources`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +51,7 @@ function Resources() {
   };
 
   const deleteResource = async (id: string) => {
-    await fetch(`http://127.0.0.1:8000/mongo/resources/${id}`, {
+    await fetch(`${API_URL}/mongo/resources/${id}`, {
       method: "DELETE",
     });
 

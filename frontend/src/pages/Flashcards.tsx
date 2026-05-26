@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { API_URL } from "../config/api";
+
 
 interface Flashcard {
   _id: string;
@@ -27,7 +29,7 @@ function Flashcards() {
   const fetchFlashcards = async () => {
 
     const response = await fetch(
-      "http://127.0.0.1:8000/mongo/flashcards"
+      `${API_URL}/mongo/flashcards`
     );
 
     const data = await response.json();
@@ -45,7 +47,7 @@ function Flashcards() {
     if (!question || !answer || !subject) return;
 
     await fetch(
-      "http://127.0.0.1:8000/mongo/flashcards",
+      `${API_URL}/mongo/flashcards`,
       {
         method: "POST",
 
@@ -74,7 +76,7 @@ function Flashcards() {
   const deleteFlashcard = async (id: string) => {
 
     await fetch(
-      `http://127.0.0.1:8000/mongo/flashcards/${id}`,
+      `${API_URL}/mongo/flashcards`,
       {
         method: "DELETE",
       }

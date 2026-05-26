@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { API_URL } from "../config/api";
+
 
 interface Notification {
   _id: string;
@@ -23,7 +25,7 @@ function Notifications() {
   const fetchNotifications = async () => {
 
     const response = await fetch(
-      "http://127.0.0.1:8000/mongo/notifications"
+      `${API_URL}/mongo/notifications`
     );
 
     const data = await response.json();
@@ -41,7 +43,7 @@ function Notifications() {
     if (!title || !message) return;
 
     await fetch(
-      "http://127.0.0.1:8000/mongo/notifications",
+      `${API_URL}/mongo/notifications`,
       {
         method: "POST",
 
@@ -67,7 +69,7 @@ function Notifications() {
   const deleteNotification = async (id: string) => {
 
     await fetch(
-      `http://127.0.0.1:8000/mongo/notifications/${id}`,
+      `${API_URL}/mongo/notifications/${id}`,
       {
         method: "DELETE",
       }

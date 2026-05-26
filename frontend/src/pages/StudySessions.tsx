@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { API_URL } from "../config/api";
+
 
 interface StudySession {
   _id: string;
@@ -17,7 +19,7 @@ function StudySessions() {
 
   const fetchSessions = async () => {
     const response = await fetch(
-      "http://127.0.0.1:8000/mongo/study-sessions"
+      `${API_URL}/mongo/study-sessions`
     );
 
     const data = await response.json();
@@ -30,7 +32,7 @@ function StudySessions() {
   const createSession = async () => {
     if (!subject || !duration) return;
 
-    await fetch("http://127.0.0.1:8000/mongo/study-sessions", {
+    await fetch(`${API_URL}/mongo/study-sessions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +50,7 @@ function StudySessions() {
   };
 
   const deleteSession = async (id: string) => {
-    await fetch(`http://127.0.0.1:8000/mongo/study-sessions/${id}`, {
+    await fetch(`${API_URL}/mongo/study-sessions/${id}`, {
       method: "DELETE",
     });
 
